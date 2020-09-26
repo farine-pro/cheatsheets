@@ -1,0 +1,21 @@
+// gitlab new project
+git init
+git add .
+git commit -m 'first commit'
+git remote add origin http://192.168.15.160/tools/gbs-control.git
+git push -u origin master
+
+// git project url replace
+git remote remove origin
+git remote add origin http://192.168.15.160/gadgets/SolarGadget.git
+git push -u origin master
+
+// windows add git ignore
+echo "" >.gitignore
+
+// head zurücksetzen
+git branch -f master HEAD~0
+// merge
+git merge master
+// new branch and checkout
+git checkout -b hallo
