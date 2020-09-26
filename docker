@@ -1,0 +1,48 @@
+docker run -it -p 80:80 -v /var/gotify/data:/app/data gotify/server --name gotifyserver
+
+docker run --network=host --privileged -v /proc:/mnt/proc:ro -v $PWD/collectd.conf:/etc/collectd/collectd.conf --name collectd fr3nd/collectd
+docker run -d --rm --network=host --privileged -v /etc/collectd/collectd.conf:/etc/collectd/collectd.conf --name collectd fr3nd/collectd
+
+docker run -it fr3nd/collectd /bin/bash
+cat collectd.conf
+
+
+docker run --rm influxdb:1.8 influxd config > influxdb.conf
+
+docker ps
+docker ps -a
+
+docker stop XXXXXX
+docker rm YYYYYY
+
+docker-compose -f docker-compose.influx.yml up -d
+
+Attach current running docker conmtainer:
+docker exec -it <container-id> bash
+
+List all containers (only IDs)
+docker ps -aq
+Stop all running containers
+docker stop $(docker ps -aq)
+Remove all containers
+docker rm $(docker ps -aq)
+Remove all images
+docker rmi $(docker images -q)
+
+influxd restore -metadir /var/lib/influxdb/meta /opt/data
+influxd restore -database grpcdb -datadir /var/lib/influxdb/data /opt/data
+
+docker-compose -f docker-compose.fritzcollect.yml up -d
+
+-- damit das alles funktioniert
+docker build -t fitzbox/farine .
+docker run -d --restart unless-stopped -p 8086:8086 -v /var/lib/influxdb:/var/lib/influxdb -it fitzbox/farine:latest /bin/bash
+docker exec -d -it <container-id> start
+
+-- wenn es hängt
+curl -G http://192.168.XXX.XXX:8086/query --data-urlencode "q=SHOW DATABASES"
+curl -G http://192.168.XXX.XXX:8086/query?pretty=true --data-urlencode "db=collectd" --data-urlencode "q=SELECT \"value\" FROM \"cpu_load_short\" "
+curl -G http://192.168.XXX.XXX:8086/query?pretty=true --data-urlencode "db=collectd" --data-urlencode "q=SELECT last(\"value\") FROM \"fritzbox_value\" "
+
+docker restart 95aee68019e6
+docker exec -d -it <container-id> start
