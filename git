@@ -2,12 +2,12 @@
 git init
 git add .
 git commit -m 'first commit'
-git remote add origin http://192.168.15.160/tools/gbs-control.git
+git remote add origin http://192.168.XXX.XXX/tools/gbs-control.git
 git push -u origin master
 
 // git project url replace
 git remote remove origin
-git remote add origin http://192.168.15.160/gadgets/SolarGadget.git
+git remote add origin http://192.168.XXX.XXX/gadgets/SolarGadget.git
 git push -u origin master
 
 // windows add git ignore
