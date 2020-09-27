@@ -46,3 +46,6 @@ curl -G http://192.168.XXX.XXX:8086/query?pretty=true --data-urlencode "db=colle
 
 docker restart 95aee68019e6
 docker exec -d -it <container-id> start
+
+-- output auf der console angucken
+docker logs -f 1f1485acb9d7
