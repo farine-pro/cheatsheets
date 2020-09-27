@@ -1,1 +1,10 @@
-aws
+-- localstack
+aws --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1 s3api create-bucket --bucket my-bucket
+
+aws s3 ls --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1
+aws s3api list-objects --bucket cdktoolkit-stagingbucket-w56y39aa324h --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1
+
+aws lambda list-functions --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1
+aws lambda invoke --function-name CdkWorkshopStack-lambda-4a3d3df7 --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1 out --log-type Tail
+
+aws lambda invoke --function-name CdkWorkshopStack-lambda-4a3d3df7 --debug --cli-binary-format raw-in-base64-out --endpoint-url="http://192.168.XXX.XXX:4566" --region eu-central-1 --invocation-type "RequestResponse" --payload "{\"body\":\"Hello\",\"path\":\"d\"}" response.json
