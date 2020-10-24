@@ -49,3 +49,7 @@ docker exec -d -it <container-id> start
 
 -- output auf der console angucken
 docker logs -f 1f1485acb9d7
+
+-- docker container ls
+-- docker image ls
+-- docker rmi ID -f
