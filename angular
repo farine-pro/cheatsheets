@@ -1,0 +1,41 @@
+angular cli Cheat Sheet
+Creating Projects
+ng new <pr¬oje¬ct-¬nam¬e> [options]	Creates a new angular project in the current directory
+ng init <pr¬oje¬ct-¬nam¬e> [options]	Creates a new angular project in the current folder
+Opti¬ons:
+--dry-run (Outputs results but does not create the project)
+--verbose (Output all the things¬!!!1!)
+--skip-npm (Does not run npm commands after project creation)
+--skip-git (Does not initialize the repo as a git repo
+--dire¬ctory (Specify the parent directory when creating the project)
+Exam¬ples:
+ng new MyProject
+ng new MyProject --dire¬ctory c:/Rep¬os/¬Ang¬ular
+ng init MyProject --skip¬-git
+Generating Code
+ng generate <ty¬pe> [options]	Generates code files in your project. Generated files get their own direct¬ories by default
+comp¬onent <pa¬th/¬nam¬e>	Generates a new component at the specified path with the specified name
+dire¬ctive <pa¬th/¬nam¬e>	Generates a new directive at the specified path with the specified name
+route <ro¬ute¬/ro¬ute¬-co¬mpo¬nen¬t>	Generates a route to the named component. The name should be the route used in RouteC¬onfig
+pipe <pa¬th/¬nam¬e>	Generates a pipe with the specified name at the specified path
+serv¬ice <pa¬th/¬nam¬e>	Generates a new service at the specified path with the specified name
+Opti¬ons:
+--flat (Do not create new files in their own directory)
+--rout¬e=<¬rou¬te> (Specify the parent route when generating components and routes)
+--skip¬-ro¬ute¬r-g¬ene¬ration (Do not generate the route config for the parent when generat.routes)
+--default (Specify the route should be the default route)
+--lazy (Specify the route is lazy and default to true)
+Exam¬ples:
+ng generate component MyComp¬onent --flat
+ng generate service app/se¬rvi¬ces¬/My¬Ser¬vice
+Workflow Tasks
+ng doc <ke¬ywo¬rd>	Searches the keyword in the Angular docs online
+ng format	Formats the project code using clang-¬format
+ng test [options]	Run project unit tests using karma
+ng e2e	Runs all project end to end tests using protractor
+ng lint	Runs codelyzer linter on your project
+Opti¬ons:
+--watch (Keep unit tests alive and running)
+Exam¬ples:
+ng test --watch
+ng lint
