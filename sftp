@@ -12,6 +12,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpATTRS;
+import com.jcraft.jsch.ProxySOCKS5;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
 import java.util.Vector;
 
@@ -48,8 +49,10 @@ public class SftpSvc {
 
         try {
             JSch jsch = new JSch();
+            ProxySOCKS5 proxy = new ProxySOCKS5(ProxyHost, 1080);
             //jsch.addIdentity(privateKey);
             session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
+            session.setProxy(proxy);
             //jsch.setKnownHosts("/home/fdsfdsfds/.ssh/known_hosts");
             session.setPassword(SFTPPASS);
             java.util.Properties config = new java.util.Properties();
