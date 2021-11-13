@@ -1,112 +1,140 @@
-package com.example.demo;
+https://github.com/key-consulting/publish-over-ssh-plugin/blob/master/src/test/java/jenkins/plugins/publish_over_ssh/jenkins/IntegrationTest.java
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.HashMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import com.jcraft.jsch.SftpException;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpATTRS;
-import com.jcraft.jsch.ProxySOCKS5;
-import com.jcraft.jsch.ChannelSftp.LsEntry;
-import java.util.Vector;
+xml.wsd
+@startuml
+title Bazaarvoice XML Objects
 
-@RestController
-public class SftpSvc {
-    
-    Session session = null;
-    Channel channel = null;
-    ChannelSftp channelSftp = null;
-    private static final int SESSION_TIMEOUT = 10000;
-    private static final int CHANNEL_TIMEOUT = 5000;
+skinparam ParticipantPadding 50
+skinparam BoxPadding 30
 
-    @GetMapping("/sftp")
-    public HashMap<String, String> sayHello() {
-        var map = new HashMap<String, String>();
-
-        send("C:\\Users\\Administrator\\Downloads\\gadget.ts");
-        map.put("greeting", "Hello");
-        map.put("planet", "Mars");
-
-        return map;
-    }
-
-    private void send(String fileName) {
-
-        String SFTPHOST = "";
-        int SFTPPORT = 2222;
-        String SFTPUSER = "";
-        String SFTPPASS = "";
-        String SFTPWORKINGDIR = "/home/upload";
-        //String privateKey = "E:\\DownloadFTP\\sss.ppk";
-
-        System.out.println("preparing the host information for sftp.");
-
-        try {
-            JSch jsch = new JSch();
-            ProxySOCKS5 proxy = new ProxySOCKS5(ProxyHost, 1080);
-            //jsch.addIdentity(privateKey);
-            session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
-            session.setProxy(proxy);
-            //jsch.setKnownHosts("/home/fdsfdsfds/.ssh/known_hosts");
-            session.setPassword(SFTPPASS);
-            java.util.Properties config = new java.util.Properties();
-            config.put("StrictHostKeyChecking", "no");
-            config.put("PreferredAuthentications", "password");
-            session.setConfig(config);
-            // 10 seconds session timeout
-            session.connect(SESSION_TIMEOUT);
-            System.out.println("Host connected.");
-
-            channel = session.openChannel("sftp");
-            // 5 seconds timeout
-            channel.connect(CHANNEL_TIMEOUT);
-            System.out.println("sftp channel opened and connected.");
-
-            channelSftp = (ChannelSftp) channel;
-            if(!SFTPWORKINGDIR.isEmpty()) {
-                channelSftp.cd(SFTPWORKINGDIR);
-            }
-            Vector filelist = channelSftp.ls(SFTPWORKINGDIR);
-            for(int i=0; i<filelist.size();i++){
-                LsEntry entry = (LsEntry) filelist.get(i);
-                System.out.println(entry.getFilename());
-            }
-            if(accessAllowed(SFTPWORKINGDIR)) {
-                System.out.println("accessAllowed.");    
-            }
-            File f = new File(fileName);
-            channelSftp.put(new FileInputStream(f), f.getName());
-            System.out.println("File transfered successfully to host.");
-        } catch (Exception ex) {
-            System.out.println("Exception found while tranfer the response.");
-        } finally {
-            channelSftp.exit();
-            System.out.println("sftp Channel exited.");
-            channel.disconnect();
-            System.out.println("Channel disconnected.");
-            session.disconnect();
-            System.out.println("Host Session disconnected.");
-        }
-    }
-
-    private boolean accessAllowed(String path) 
-    throws SftpException, JSchException {
-
-    boolean result = false;
-
-    SftpATTRS attrs = channelSftp.lstat(path);
-
-    result =
-      attrs != null &&
-      ((attrs.getPermissions() & 00200) != 0) &&
-       attrs.getUId() != 0;
-
-    return result;
-  }
+map UploadFeedXML {
+    productid => office (bazaarvoiceid)
+    description => office (teaser)
 }
+
+map DownloadFeedXML {
+    extractDateTime => 
+    productid => office (bazaarvoiceid)
+    reviewid => review (bazaarvoicereviewid)
+    rating => review (rating)
+}
+
+
+@enduml
+
+db.wsd
+@startuml
+title Bazaarvoice Database Entity Dependencies
+
+skinparam ParticipantPadding 50
+skinparam BoxPadding 30
+
+map "office ** (OfficeDB) **" as CC {
+    ... => 
+    bazaarvoiceid => uuid
+    optoutbazaarvoice => boolean
+}
+
+map "review ** (SupportDB) **" as CA {
+    bazaarvoiceid => uuid
+    bazaarvoicereviewid => string
+    sendStatus => timestamp
+    rating => integer
+}
+
+map "settings ** (ProspectiveDB) **" as CB {
+    officeid => string
+    mailaddress => string
+}
+
+@enduml
+
+upload.wsd
+@startuml
+title Bazaarvoice Upload Office Catalog as Feed - CronJob
+
+skinparam ParticipantPadding 50
+skinparam BoxPadding 30
+
+box "Paas" 
+participant cronjob
+participant supportBackend
+database supportDB
+database officeDB
+end box
+participant sftp
+
+cronjob -> supportBackend: start at 11:00 pm
+supportBackend -> supportDB: insert entry into batchrun table start timestamp
+supportBackend -> officeDB: Request Office Data 
+officeDB -> supportBackend: Response Office Data 
+supportBackend -> sftp: convert dto to xml and upload data
+sftp -> supportBackend: ok
+supportBackend -> supportDB: update batchrun table with end timestamp
+supportBackend -> cronjob: job done!
+
+@enduml
+
+notification.wsd
+@startuml
+!pragma teoz true
+title Bazaarvoice Notification Mail - CronJob
+
+skinparam ParticipantPadding 50
+skinparam BoxPadding 30
+
+box "Paas" 
+participant cronjob
+participant supportBackend
+database supportDB
+database officeDB
+database prospectiveDB
+participant notificationHelper
+end box
+Actor Kanzlei
+
+{start} cronjob -> supportBackend: start daily at 5:20 am
+supportBackend -> supportDB: insert entry into batchrun table start timestamp
+supportBackend -> supportDB: get only reviews with ModeratorStatus "APPROVED" and SendStatus NULL
+supportDB -> supportBackend: reviews found
+supportBackend -> officeDB: get officeid by bazaarvoiceId
+officeDB -> supportBackend: officeid 
+supportBackend -> prospectiveDB: get settings with mailadress by officeid
+prospectiveDB -> supportBackend: settings (mailadress)
+supportBackend -> notificationHelper: send NotificationDTO
+notificationHelper -> Kanzlei: send Mail
+notificationHelper -> supportBackend: Notification Done!
+supportBackend -> supportDB: update reviews SendStatus with timestamp
+supportDB -> supportBackend: reviews updated!
+supportBackend -> supportDB: update batchrun table with end timestamp
+{end} supportBackend -> cronjob: job done!
+
+{start} <-> {end}: runtime
+
+@enduml
+
+download.wsd
+@startuml
+title Bazaarvoice Download Review Feeds - CronJob
+
+skinparam ParticipantPadding 50
+skinparam BoxPadding 30
+
+box "Paas" 
+participant cronjob
+participant supportBackend
+database supportDB
+end box
+participant sftp
+
+
+cronjob -> supportBackend: start daily at 4:20 am
+supportBackend -> supportDB: insert entry into batchrun table start timestamp
+supportBackend -> sftp: Request incremental Review XML's with Bazaarvoiceids
+sftp -> supportBackend: Response incremental Review XML's with Bazaarvoiceids
+supportBackend -> supportDB: Insert review into DB
+supportDB -> supportBackend: review saved!
+supportBackend -> supportDB: update batchrun table with end timestamp
+supportBackend -> cronjob: job done!
+
+@enduml
