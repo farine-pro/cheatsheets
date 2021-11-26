@@ -1,3 +1,107 @@
 
 https://buddy.works/tutorials/building-web-components-with-angular
 https://github.com/techiediaries/angular-web-component-demo
+{
+    "name": "angular-web-component",
+    "version": "0.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "watch": "ng build --watch --configuration development",
+        "test": "ng test",
+        "build": "ng build --configuration production",
+        "build:component": "npm run build && node ./build-component"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "~13.0.2",
+        "@angular/common": "~13.0.2",
+        "@angular/compiler": "~13.0.2",
+        "@angular/core": "~13.0.2",
+        "@angular/elements": "^13.0.2",
+        "@angular/forms": "~13.0.2",
+        "@angular/platform-browser": "~13.0.2",
+        "@angular/platform-browser-dynamic": "~13.0.2",
+        "@angular/router": "~13.0.2",
+        "document-register-element": "^1.14.10",
+        "rxjs": "~7.4.0",
+        "tslib": "^2.3.1",
+        "zone.js": "~0.11.4"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "~13.0.3",
+        "@angular/cli": "~13.0.3",
+        "@angular/compiler-cli": "~13.0.2",
+        "@types/jasmine": "~3.10.2",
+        "@types/node": "^16.11.10",
+        "concat": "^1.0.3",
+        "fs-extra": "^10.0.0",
+        "jasmine-core": "~3.10.1",
+        "karma": "~6.3.9",
+        "karma-chrome-launcher": "~3.1.0",
+        "karma-coverage": "~2.0.3",
+        "karma-jasmine": "~4.0.1",
+        "karma-jasmine-html-reporter": "~1.7.0",
+        "typescript": "~4.4.2"
+    }
+}
+
+const fs = require('fs-extra');
+const path = require('path');
+const concat = require('concat');
+const crypto = require('crypto');
+
+const outputFolder = 'widget';
+const outputFileName = 'dinosaurs-widget';
+const distFolder = './dist/angular-web-component/';
+const sortFiles = [
+    'runtime',
+    'polyfills',
+    'main'
+];
+
+get16DigitsCode = (sortedFiles) => {
+    let fileBuffer = null;
+    sortedFiles.forEach(sfile => {
+        fileBuffer += fs.readFileSync(sfile);
+    });
+
+    const hashSum = crypto.createHash('sha256');
+    hashSum.update(fileBuffer);
+    const hash = hashSum.digest('hex');
+
+    const first16HexCharacters = hash.slice(0, 16);
+    return first16HexCharacters;
+};
+fillCopyTemplate = (widgetFile) => {
+    const finalFile = `./${outputFolder}/index.html`;
+    fs.copySync(path.resolve(__dirname, './index.template.html'), finalFile, { overwrite: true });
+    let content = fs.readFileSync(finalFile, "utf8");
+    content = content.replace('{placeholder}', widgetFile);
+    fs.outputFileSync(finalFile, content, { overwrite: true });
+};
+build = async() => {
+    const sortedFiles = [];
+    const files = [];
+
+    fs.readdirSync(distFolder).forEach(filename => {
+        const name = path.parse(filename).name;
+        const ext = path.parse(filename).ext;
+        const filepath = path.resolve(distFolder, filename);
+        const stat = fs.statSync(filepath);
+        const isFile = stat.isFile();
+
+        if (isFile) files.push(`${distFolder}${name}${ext}`);
+    });
+
+    sortFiles.forEach(sfile => {
+        sortedFiles.push(files.find(x => x.includes(sfile)));
+    });
+
+    const widgetFile = `${outputFileName}.${get16DigitsCode(sortedFiles)}.js`;
+
+    await fs.ensureDir(outputFolder);
+    await concat(sortedFiles, `${outputFolder}/${widgetFile}`);
+    fillCopyTemplate(widgetFile);
+}
+build();
