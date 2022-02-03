@@ -1,1 +1,243 @@
+https://stackoverflow.com/questions/53748432/spring-generic-repository-autowiring-failure
 
+
+package com.example.DemoGraphQL.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+
+@NoRepositoryBean
+public interface BaseRepository<T> extends CrudRepository<T, Long> {
+}
+-----------------------------------------------------------------------------
+package com.example.DemoGraphQL.repository;
+
+import com.example.DemoGraphQL.model.Book;
+
+public interface GenericBookRepository extends BaseRepository<Book> {
+}
+-----------------------------------------------------------------------------
+package com.example.DemoGraphQL.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+import java.util.List;
+
+import com.example.DemoGraphQL.repository.BaseRepository;
+
+
+public abstract class Base<T> {
+
+    abstract BaseRepository<T> getRepository();
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "View the item", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved item"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    public T findById(Long id) {
+        return (T) getRepository().findById(id);
+    }
+
+    @GetMapping("/")
+    @ApiOperation(value = "View a list of available authors", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    public List<T> findAll() {
+        return (List<T>) getRepository().findAll();
+    }
+
+    @PostMapping
+    public T save(T entity) {
+        return getRepository().save(entity);
+    }
+    @PutMapping
+    public T put(T entity) {
+        return getRepository().save(entity);
+    }
+    @DeleteMapping
+    public T delete(T entity) {
+        return getRepository().save(entity);
+    }
+}
+-----------------------------------------------------------------------------
+package com.example.DemoGraphQL.controller;
+
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.DemoGraphQL.model.Book;
+import com.example.DemoGraphQL.repository.BaseRepository;
+
+@RestController
+@Api(value="Authors API", description="Operations pertaining to authors")
+@RequestMapping("/api")
+public class GenericBookController extends Base<Book> {
+
+    @Autowired 
+    BaseRepository<Book> repository;
+
+    public BaseRepository<Book> getRepository() {
+        return repository;
+    }
+}
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+package com.example.DemoGraphQL.services;
+
+import com.example.DemoGraphQL.repository.BaseRepository;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public abstract class BaseService<T> {
+    abstract BaseRepository<T> getRepository();
+   
+    public T findById(Long id) {
+        return (T) getRepository().findById(id);
+    }
+
+   
+    public List<T> findAll() {
+        return (List<T>) getRepository().findAll();
+    }
+
+    public T save(T entity) {
+        return getRepository().save(entity);
+    }
+   
+    public T put(T entity) {
+        return getRepository().save(entity);
+    }
+   
+    public T delete(T entity) {
+        return getRepository().save(entity);
+    }
+}
+-----------------------------------------------------------------------------
+
+package com.example.DemoGraphQL.services;
+
+import com.example.DemoGraphQL.model.Book;
+import com.example.DemoGraphQL.repository.BaseRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BooksService extends BaseService<Book> {
+
+    @Autowired 
+    BaseRepository<Book> repository;
+
+    public BaseRepository<Book> getRepository() {
+        return repository;
+    }
+    
+}
+-----------------------------------------------------------------------------
+
+package com.example.DemoGraphQL.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+import java.util.List;
+
+import com.example.DemoGraphQL.services.BaseService;
+
+
+public abstract class Base<T> {
+
+    abstract BaseService<T> getService();
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "View the item", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved item"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    public T findById(Long id) {
+        return (T) getService().findById(id);
+    }
+
+    @GetMapping("/")
+    @ApiOperation(value = "View a list of available authors", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    public List<T> findAll() {
+        return (List<T>) getService().findAll();
+    }
+
+    @PostMapping
+    public T save(T entity) {
+        return getService().save(entity);
+    }
+    @PutMapping
+    public T put(T entity) {
+        return getService().save(entity);
+    }
+    @DeleteMapping
+    public T delete(T entity) {
+        return getService().save(entity);
+    }
+}
+
+-----------------------------------------------------------------------------
+package com.example.DemoGraphQL.controller;
+
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.DemoGraphQL.model.Book;
+import com.example.DemoGraphQL.services.BaseService;
+
+@RestController
+@Api(value="Authors API", description="Operations pertaining to authors")
+@RequestMapping("/api")
+public class GenericBookController extends Base<Book> {
+
+    @Autowired 
+    BaseService<Book> service;
+
+    public BaseService<Book> getService() {
+        return service;
+    }
+}
