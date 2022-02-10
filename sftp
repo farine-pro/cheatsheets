@@ -241,3 +241,7 @@ public class GenericBookController extends Base<Book> {
         return service;
     }
 }
+
+https://stackoverflow.com/questions/6800856/is-it-possible-to-get-the-id-to-be-inserted-in-the-database-before-insert
+https://stackoverflow.com/questions/57471268/selecting-nextval-from-h2-database-and-db2?rq=1
+https://stackoverflow.com/questions/55006231/query-to-get-nextval-from-sequence-with-spring-jpa
