@@ -1,3 +1,11 @@
+export function createAuthorFormGroup(data: Author) {
+  return new FormGroup({
+    firstName: new FormControl(data.firstName, [Validators.required]),
+    id: new FormControl(data.id, [Validators.required]),
+    lastName: new FormControl(data.lastName, [Validators.required]),
+  });
+}
+
 https://medium.com/@kandisa.ganesh/resiliency-patterns-with-spring-boot-and-resilience4j-a28734bda17f
 https://stackoverflow.com/questions/65909665/circuitbreaker-not-loading-defaults-from-yaml-file
 https://quabr.com/65536176/get-instance-of-circuit-breaker-from-configuration-file
