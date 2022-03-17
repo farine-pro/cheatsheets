@@ -1,10 +1,6 @@
-export function createAuthorFormGroup(data: Author) {
-  return new FormGroup({
-    firstName: new FormControl(data.firstName, [Validators.required]),
-    id: new FormControl(data.id, [Validators.required]),
-    lastName: new FormControl(data.lastName, [Validators.required]),
-  });
-}
+https://stackoverflow.com/questions/60151224/unable-to-change-the-configuration-from-jest-to-karma-ngentest
+https://www.amadousall.com/how-to-set-up-angular-unit-testing-with-jest/
+https://stackoverflow.com/questions/61422160/testing-angular-component-using-jest
 
 https://medium.com/@kandisa.ganesh/resiliency-patterns-with-spring-boot-and-resilience4j-a28734bda17f
 https://stackoverflow.com/questions/65909665/circuitbreaker-not-loading-defaults-from-yaml-file
