@@ -13,6 +13,7 @@ ng g scuri:autospy --for jest
 ng g scuri:spec --name src/app/components/c1/c1.component.ts --update
 https://github.com/gparlakov/scuri
 https://indepth.dev/posts/1240/create-your-angular-unit-test-spies-automagically
+https://blog.3sharecorp.com/unit-testing-js-and-ts-in-aem-with-jest
 
 https://stackoverflow.com/questions/39038791/inheritance-and-dependency-injection
 
