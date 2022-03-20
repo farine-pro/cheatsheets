@@ -1,3 +1,16 @@
+npm install -D scuri
+ng g scuri:autospy --for jest
+{
+    ...
+    "compilerOptions": {
+        ...
+        "baseUrl": ".",
+        "paths": {
+            "autoSpy": ["./src/auto-spy"]
+        }
+    }
+}
+ng g scuri:spec --name src/app/components/c1/c1.component.ts --update
 https://github.com/gparlakov/scuri
 https://indepth.dev/posts/1240/create-your-angular-unit-test-spies-automagically
 
