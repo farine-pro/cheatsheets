@@ -1,112 +1,29 @@
-pipeline {
-  agent any
-  options { timestamps () }
-  tools {nodejs "node"}
-    
-  stages {
-        
-    stage('Install dependencies') {
-      steps {
-        // Clean before build
-        cleanWs()
+	@Bean
+	public OpenApiCustomiser openApiCustomiser() {
+		return openAPI -> openAPI.getComponents().getSchemas().values()
+				.forEach(schema -> {
 
-        sh 'ls -a && node -v && npm -v'
-        
-        nodeOptimizedInstall()
-        // sh 'npm install'
-      }
-    }
-     
-    stage('Test') {
-      steps {
-         sh 'npm test'
-      }
-    }      
-  }
-}
+					if (schema.getProperties() != null) {
+						((Map<String, Schema>) schema.getProperties()).forEach((String name, Schema value) -> {
+							Class<?> ClassWithAnnotations = null;
+							Field classMemberField = null;
+							try {
+								ClassWithAnnotations = Class.forName("com.example.demo.model." + schema.getName());
+								classMemberField = ClassWithAnnotations.getDeclaredField(name);
+								boolean annotationPresent = classMemberField.isAnnotationPresent(ApiResponseFieldAnno.class);
+								if (annotationPresent) {
+									value.setAdditionalProperties(new ObjectSchema().addProperties("techProp", new BooleanSchema()));
+								}
+							} catch (Exception e) {
+							}
+						});
+					}
 
-void cleanWs() {
-  sh 'rm -rf node_modules/'
-  sh 'rm -rf *.tgz'
-  sh 'rm -rf *.md5sum'
-}
 
-String nodeOptimizedInstalldeclareFiles() {
-   return '''
-    APP_NAME=angular_jenkins_test
-    CACHE_FOLDER=${HOME}/.cache/md5_${APP_NAME}
-    echo "EXECUTOR_NUMBER: ${EXECUTOR_NUMBER}"
-    MD5_FILE_NAME=package-json_${EXECUTOR_NUMBER}.md5sum
-
-    PKG_SUM=$(md5sum package.json|cut -d\\  -f 1)
-    CACHED_FILE=${PKG_SUM}.tgz
-    '''
-}
-
-String nodeOptimizedInstallFailedMD5Sum() {
-   return '''
-    nodeOptimizedInstallFailedMD5Sum()
-    {
-      echo "md5sum is not ok"
-      rm -rf ${CACHE_FOLDER}/${MD5_FILE_NAME} && rm -rf ${CACHE_FOLDER}/${CACHED_FILE} && rm -rf ${MD5_FILE_NAME} && rm -rf ${CACHED_FILE} 
-      npm i
-      tar zcf ${CACHED_FILE} node_modules
-      echo "create new md5sum backup"
-      md5sum package.json
-      md5sum package.json > ${MD5_FILE_NAME}
-      cp ${MD5_FILE_NAME} ${CACHE_FOLDER}
-      cp ${CACHED_FILE} ${CACHE_FOLDER}
-    }
-   '''
-}
-
-String nodeOptimizedInstallCacheFolder() {
-  return '''
-    if [ -d ${CACHE_FOLDER} ];then
-      echo "${CACHE_FOLDER} exists!"
-    else
-      if [ -f ${CACHE_FOLDER} ];then
-        echo "${CACHE_FOLDER} is not a directory but a file so delete it!"
-        rm -rf ${CACHE_FOLDER}
-      fi
-      echo "create directory ${CACHE_FOLDER}!"
-      mkdir -p ${CACHE_FOLDER}
-    fi
-    '''
-}
-
-void nodeOptimizedInstall() {
-  sh '''#!/bin/bash''' + 
-  nodeOptimizedInstalldeclareFiles() + 
-  nodeOptimizedInstallFailedMD5Sum() + 
-  nodeOptimizedInstallCacheFolder() +
-  '''
-    if [ -f ${CACHE_FOLDER}/${MD5_FILE_NAME} ];then
-      cp ${CACHE_FOLDER}/${MD5_FILE_NAME} ${MD5_FILE_NAME}
-      md5sum package.json
-      cat ${MD5_FILE_NAME}
-      if md5sum -c ${MD5_FILE_NAME};then
-        echo "md5sum is ok!"
-        if [ -f ${CACHE_FOLDER}/${CACHED_FILE} ];then
-          cp ${CACHE_FOLDER}/${CACHED_FILE} ${CACHED_FILE}
-          echo "cachefile exists extract node_modules folder now...!"
-          tar zxf ${CACHED_FILE}
-        else
-          echo "cachefile not exists!"
-          npm i
-          tar zcf ${CACHED_FILE} node_modules
-        fi
-      else
-        nodeOptimizedInstallFailedMD5Sum
-      fi
-    else
-      nodeOptimizedInstallFailedMD5Sum
-    fi
-
-    ls -a ${CACHE_FOLDER}
-    ls ${CACHE_FOLDER}
-    '''
-}
+//					schema.setAdditionalProperties(new ObjectSchema().addProperties("techProp", new BooleanSchema())
+//					);
+				});
+	}
 
 ng g scuri:spec --name src/app/components/c1/c1.component.ts --update
 https://github.com/gparlakov/scuri
