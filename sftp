@@ -1,3 +1,6 @@
+	
+formControlName=(.*?)\s
+
 	import {
   Project,
   VariableDeclarationKind,
