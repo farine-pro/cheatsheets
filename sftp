@@ -1,4 +1,20 @@
+import { Component, OnInit, VERSION } from '@angular/core';
+
+
+export type moneyField = 'einkommen' | 'einkommenExakt';
+
+class test {
+  einkommen: number
+  einkommen2: number
+}
+
+
+const isMoney => (pet: moneyField): pet is moneyField {
+  return (pet as moneyField) !== undefined;
+}
 	
+
+
 formControlName=(.*?)\s
 
 	import {
