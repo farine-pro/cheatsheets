@@ -1,17 +1,14 @@
-import { Component, OnInit, VERSION } from '@angular/core';
+location /landingpage {
+        #root /usr/share/nginx/www/gallery/assets/html;
+		#autoindex on;
+		alias /usr/share/nginx/www/gallery/assets/html/;
+		index landingpage.html;
+		location ~* \.(js|css|png|jpg|jpeg)$ {
+            expires 7d; 
+        }
+        try_files $uri $uri/ /landingpage.html =404;
+    }
 
-
-export type moneyField = 'einkommen' | 'einkommenExakt';
-
-class test {
-  einkommen: number
-  einkommen2: number
-}
-
-
-const isMoney => (pet: moneyField): pet is moneyField {
-  return (pet as moneyField) !== undefined;
-}
 	
 
 
