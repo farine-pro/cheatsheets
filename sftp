@@ -1,3 +1,37 @@
+const tabsSet = new Set(['info', 'features', 'special', 'stars'])
+const isOfTypeTabs = (keyInput: string): boolean => tabsSet.has(keyInput)
+
+console.log(isOfTypeTabs('info')) // true
+console.log(isOfTypeTabs('foo')) /
+
+const TabValues = ['info', 'features', 'special', 'stars'] as const;
+const TabValuesObj = TabValues.reduce(
+  (acc, next) => ({ ...acc, [next]: null }),
+  {} as Record<string, null>,
+);
+export type TabType = typeof TabValues[number];
+export function isTabType(value: string): value is TabType {
+  return value in TabValuesObj;
+}
+
+
+const keys = <const> ['features','special'];
+export type Key = typeof keys[number];
+const tabTypes = <const> ['info' ,'features' ,'special', 'stars'];
+export type TabTypes = typeof tabTypes[number];
+
+activeTabChanged(event: TabTypes) {
+    this.activeTab: TabTypes = event;
+    // it won't let me set the key here because key has a different type 
+    // but the send event can be contained in type Key
+    // how can I check if the send event from type TabTypes is contained in type Key
+
+    if (event in keys) {
+        this.key: Key = event as Key;
+    }
+}
+
+
 location /landingpage {
         #root /usr/share/nginx/www/gallery/assets/html;
 		#autoindex on;
