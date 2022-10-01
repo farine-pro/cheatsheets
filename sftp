@@ -1,3 +1,35 @@
+-------------------------------------------------------------------------------------------------------------------------------------- local.config.js ----  "cypress:open": "cypress open --config-file cypress/config/local.config.js"
+const { defineConfig } = require('cypress')
+
+const store = new Map();
+
+module.exports = defineConfig({
+    // These settings apply everywhere unless overridden
+    defaultCommandTimeout: 5000,
+    env: {
+        FOO: 'bar'
+    },
+    // Command timeout overridden for E2E tests
+    e2e: {
+        defaultCommandTimeout: 10000,
+        // baseUrl: 'http://localhost:3030',
+        baseUrl: 'https://docs.cypress.io/api/commands/visit#Syntax',
+        setupNodeEvents(on, config) {
+            on('task', {
+                setStoreVariable: (variable) => {
+                    store.set(variable.key, variable.value);
+                    return variable.value;
+                },
+                getStoreVariable: (key) => {
+                    return store.get(key);
+                },
+            })
+        }
+    }
+})
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
 const tabsSet = new Set(['info', 'features', 'special', 'stars'])
 const isOfTypeTabs = (keyInput: string): boolean => tabsSet.has(keyInput)
 
