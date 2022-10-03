@@ -2,6 +2,7 @@ https://stackoverflow.com/questions/54133888/cypress-custom-commands-not-recogni
 https://blog.abatishchev.dev/2015/07/22/how-to-extract-private-key-from-pfx-and-remove-passphrase-using-openssl/
 
 https://update.angular.io/?l=2&v=13.0-14.0
+https://levelup.gitconnected.com/test-angular-pipes-with-services-4cf77e34e576
 
 --------------------------------------------------------------------------------------------------------------------------------------
 const tabsSet = new Set(['info', 'features', 'special', 'stars'])
