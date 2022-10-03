@@ -1,17 +1,7 @@
 https://stackoverflow.com/questions/54133888/cypress-custom-commands-not-recognized
 https://blog.abatishchev.dev/2015/07/22/how-to-extract-private-key-from-pfx-and-remove-passphrase-using-openssl/
 
-declare namespace Cypress {
-    interface Chainable {
-      clickConsentLayer(): Chainable<any>
-      visitIvWithPath(path: string, closeConsentLayer?: boolean): Chainable<any>
-      storeVariable(key: string, value: any): Chainable<any>
-      loadVariable(key: string): Chainable<any>
-      setViewport(viewportConfig: [Cypress.ViewportPreset, Cypress.ViewportOrientation] | Cypress.ViewportPreset): Chainable<any>
-      isNotWithinViewport(selector: string): Chainable<any>
-      isWithinViewport(selector: string): Chainable<any>
-    }
-}
+https://update.angular.io/?l=2&v=13.0-14.0
 
 --------------------------------------------------------------------------------------------------------------------------------------
 const tabsSet = new Set(['info', 'features', 'special', 'stars'])
