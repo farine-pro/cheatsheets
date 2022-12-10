@@ -1,4 +1,5 @@
-https://stackoverflow.com/questions/55593316/angular-how-to-show-waiting-indicator-while-app-is-loading-using-app-initializ
+change your tsconfig.json build module from "module": "commonjs" to "module": "es2020" or esnext (you should use es2020 explain here https://web.archive.org/web/20220605011837/https://angular.io/guide/migration-update-module-and-target-compiler-options)
+add sideEffects: false to package.json and see the result:
 
 https://www.lambdatest.com/blog/cypress-accessibility-testing/
 https://brandonroberts.dev/blog/posts/2020-07-06-lazy-loading-routes-observable/
