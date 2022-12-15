@@ -1,5 +1,5 @@
-change your tsconfig.json build module from "module": "commonjs" to "module": "es2020" or esnext (you should use es2020 explain here https://web.archive.org/web/20220605011837/https://angular.io/guide/migration-update-module-and-target-compiler-options)
-add sideEffects: false to package.json and see the result:
+https://stackoverflow.com/questions/55402751/angular-app-has-to-clear-cache-after-new-deployment
+https://stackoverflow.com/questions/54706298/angular-i18n-json-cache-issues-using-nginx
 
 https://www.lambdatest.com/blog/cypress-accessibility-testing/
 https://brandonroberts.dev/blog/posts/2020-07-06-lazy-loading-routes-observable/
