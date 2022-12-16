@@ -1,3 +1,31 @@
+const fs = require('fs');
+
+// Read the HTML file
+fs.readFile('index.html', 'utf8', (err, html) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  // Use a regular expression to find all script and link elements with a "src" or "href" attribute
+  const elements = html.match(/<(script|link)[^>]*(src|href)="([^"]+)"[^>]*>/g);
+
+  // Iterate over the elements and add the "?h=0" query parameter to the end of the file name
+  elements.forEach((element) => {
+    const src = element.match(/(src|href)="([^"]+)"/)[2];
+    html = html.replace(src, `${src}?h=0`);
+  });
+
+  // Write the modified HTML back to the file
+  fs.writeFile('index.html', html, 'utf8', (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Cache-busting query parameters added to file names');
+    }
+  });
+});
+
 https://stackoverflow.com/questions/55402751/angular-app-has-to-clear-cache-after-new-deployment
 https://stackoverflow.com/questions/54706298/angular-i18n-json-cache-issues-using-nginx
 
