@@ -1,5 +1,5 @@
 https://tutorialshut.com/how-to-open-and-start-with-cypress/
-cypress open --e2e --config "{\"supportFile\":false}" --browser chrome
+cypress open --e2e --config "{\"supportFile\":false,\"pageLoadTimeout\":100000,\"experimentalStudio\":true}" --browser chrome
 
 https://www.deque.com/axe/
 https://glebbahmutov.com/blog/cypress-lighthouse/
