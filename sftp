@@ -1,3 +1,5 @@
+https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/
+
 git format-patch --root --stdout > all.patch
 git am --reject patch_backup/all.patch
 git add -A
