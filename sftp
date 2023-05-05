@@ -1,5 +1,8 @@
 https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/
 
+https://stackoverflow.com/questions/63222937/nginx-proxy-pass-with-return-301-redirect
+https://stackoverflow.com/questions/50263513/redirect-crawlers-to-internal-microservice-in-nginx
+
 git format-patch --root --stdout > all.patch
 git am --reject patch_backup/all.patch
 git add -A
