@@ -1,5 +1,4 @@
-psql -h <hostname or ip address> -p <port number of remote machine> -d <database name which you want to connect> -U <username of the database server>
-https://www.tutorialspoint.com/postgresql/postgresql_select_database.htm
+https://codinglatte.com/posts/angular/customizing-angular-app-behavior-per-build-environment/
 
 https://tecnstuff.net/how-to-install-notepad-plus-plus-on-ubuntu-22-04/
 https://webtrickz.com/export-chrome-datasettings-from-windows-to-ubuntu/
