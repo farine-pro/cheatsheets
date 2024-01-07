@@ -1,4 +1,5 @@
 // module federation share service
+https://angular.de/artikel/developer-ergonomics-hier-kommen-angular-signals/
 https://sagarsnath.medium.com/angular-micro-frontend-module-federation-5bc5638c963f
 https://github.com/manfredsteyer/standalone-example-cli/blob/arc-signal-store-custom-examples-typed/src/app/domains/ticketing/data/flight-booking.store.ts
 https://dev.to/ngrx/announcing-ngrx-v17-introducing-ngrx-signals-operators-performance-improvements-workshops-and-more-55e4
