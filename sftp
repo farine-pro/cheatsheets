@@ -1,5 +1,6 @@
 // module federation share service
 https://sagarsnath.medium.com/angular-micro-frontend-module-federation-5bc5638c963f
+https://github.com/manfredsteyer/standalone-example-cli/blob/arc-signal-store-custom-examples-typed/src/app/domains/ticketing/data/flight-booking.store.ts
 https://dev.to/ngrx/announcing-ngrx-v17-introducing-ngrx-signals-operators-performance-improvements-workshops-and-more-55e4
 https://stackoverflow.com/questions/64501315/module-federation-shared-services
 https://github.com/angular-architects/module-federation-plugin/issues/11
