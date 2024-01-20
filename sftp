@@ -1,3 +1,71 @@
+--------------------------------------------------------------------------------------------------
+Create a new workspace 
+ng new testmfeshell --no-create-application
+
+Activating Module Federation for Angular Projects
+ng generate app shell --style scss --ssr false
+ng generate app mfe --style scss --ssr=false
+ng add @angular-architects/module-federation --project shell --port 4200 --type host
+ng add @angular-architects/module-federation --project mfe --port 4201 --type remote
+ng generate environments --project=shell
+ng generate environments --project=mfe
+
+
+
+packagejson:
+npm i concurrently
+kill port installieren
+"start": "npm run start:shell",
+"start:shell": "ng serve shell  -o --port 4200",
+"start:mfe": "ng serve mfe -o --port 4201",
+"start:all": "concurrently \"npm run start:shell\" \"npm run start:mfe\" ",
+"build:shell": "ng build shell --prod",
+"build:mfe": "ng build mfe --prod",
+"build:core": "ng build core --prod",
+
+tsconfig
+strict anpassen
+
+Library
+ng generate lib core
+In your tsconfig.json in the workspace's root, adjust the path mapping for auth-lib so that it points to the libs entry point:
+"auth-lib": [
+    "projects/auth-lib/src/public-api.ts"
+]
+build and deploy and import library:
+https://jinalshah999.medium.com/how-to-build-and-publish-angular-library-a333d6ff12c0
+
+
+Remove Jasmine and Karma and add jest
+remove zone.js in package und angular json
+https://medium.com/@surajk236789/jasmine-to-jest-migration-in-angular-a8549a7ed6ae
+
+create store in core library
+npm install @ngrx/signals
+https://dzone.com/articles/the-power-of-ngrxsignalstore-a-deep-dive-into-task
+Extra Infos:
+https://github.com/manfredsteyer/standalone-example-cli/blob/signal-store-webinar-dec-7/src/app/domains/ticketing/feature-booking/booking.store.ts
+https://offering.solutions/blog/articles/2023/12/03/ngrx-signal-store-getting-started/
+https://ngrx.io/guide/signals/signal-store
+
+// share store to shell and make communication over 
+https://github.com/angular-architects/module-federation-plugin/blob/main/libs/mf/tutorial/tutorial.md
+extra infos:
+https://github.com/Appius/multi-framework-micro-frontend/blob/main/mfe1/src/app/app.module.ts
+
+// share store Module:
+in mfe appcomponents add in import the StoreModule imports: [RouterOutlet, StoreModule],
+in mfe webpack add in expose: './StoreModule': './projects/mfe/src/app/store/store/store.module.ts',
+in shell  webpack port in remotes anpassen
+in shell // decl.d.ts erstellen mit declare module 'mfe/StoreModule';
+in shell app routes: export const routes: Routes = [
+  {
+    path: 'flights',
+    loadChildren: () => import('mfe/StoreModule').then(m => m.StoreModule)
+  },
+];
+
+--------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
 https://chat.openai.com/share/f64f5928-bd22-4ee3-89a4-61e8c470fe8d
 https://chat.openai.com/share/ab5f7ec7-a7c6-4159-bc2c-5a7bb3712de2
