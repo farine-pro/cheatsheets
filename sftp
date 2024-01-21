@@ -68,6 +68,9 @@ in shell app routes: export const routes: Routes = [
 // beim inital laden der remote comp inital einen input füllen
 https://stackoverflow.com/questions/73025469/how-to-pass-data-into-a-remotely-loaded-component
 
+// observablre to signal
+https://dev.to/railsstudent/how-to-convert-http-response-from-observable-to-angular-signal-with-tosignal-1n2m
+
 --------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
 https://chat.openai.com/share/f64f5928-bd22-4ee3-89a4-61e8c470fe8d
