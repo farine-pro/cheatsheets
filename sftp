@@ -48,7 +48,7 @@ https://github.com/manfredsteyer/standalone-example-cli/blob/signal-store-webina
 https://offering.solutions/blog/articles/2023/12/03/ngrx-signal-store-getting-started/
 https://ngrx.io/guide/signals/signal-store
 
-// share store to shell and make communication over 
+// share store to shell and make communication over / core lib
 https://github.com/angular-architects/module-federation-plugin/blob/main/libs/mf/tutorial/tutorial.md
 extra infos:
 https://github.com/Appius/multi-framework-micro-frontend/blob/main/mfe1/src/app/app.module.ts
