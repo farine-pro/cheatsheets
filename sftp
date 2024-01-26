@@ -62,6 +62,9 @@ in shell app routes: export const routes: Routes = [
   },
 ];
 
+// Standalone Comp
+https://www.angulararchitects.io/blog/routing-and-lazy-loading-with-standalone-components/
+
 // beim inital laden der remote comp inital einen input füllen
 https://stackoverflow.com/questions/73025469/how-to-pass-data-into-a-remotely-loaded-component
 
