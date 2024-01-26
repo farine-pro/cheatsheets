@@ -2,7 +2,8 @@ ToDo:
 library build optional
 jest in der packagejson alles entfernen und ...
 add library scope organization
-remove library
+eventule => remove library und neu anlegen wegen scope
+library in externen project testen ob man die so installieren kann
 contextroot beantragen
 library abstract class und services
 ng openapi gen
