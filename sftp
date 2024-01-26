@@ -1,3 +1,11 @@
+ToDo:
+library build optional
+jest in der packagejson alles entfernen und ...
+add library scope organization
+remove library
+contextroot beantragen
+library abstract class und services
+ng openapi gen
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
