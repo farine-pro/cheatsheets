@@ -34,11 +34,8 @@ In your tsconfig.json in the workspace's root, adjust the path mapping for auth-
 ]
 build and deploy and import library:
 https://jinalshah999.medium.com/how-to-build-and-publish-angular-library-a333d6ff12c0
-
-
-Remove Jasmine and Karma and add jest
-remove zone.js in package und angular json
-https://medium.com/@surajk236789/jasmine-to-jest-migration-in-angular-a8549a7ed6ae
+// remove library
+https://stackoverflow.com/questions/50243023/how-to-remove-an-angular-library-created-with-cli-ng-generate-library
 
 create store in core library
 npm install @ngrx/signals
@@ -80,6 +77,11 @@ npm install lerna --save-dev
 lerna init --independent // initialize lerna monorepo 
 https://www.techiediaries.com/angular-monorepo-lerna/
 https://github.com/MayuriRathod/Angular-MonoRepo/blob/master/package.json
+
+// Jest Angular 17
+https://www.danywalls.com/play-with-jest-builder-for-angular-17-experimental
+https://www.npmjs.com/package/@angular-builders/jest
+https://www.justjeb.com/post/angular-cli-ng-test-with-jest
 
 --------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
