@@ -1,5 +1,6 @@
 ToDo:
 ng openapi gen
+abstract generc service
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
