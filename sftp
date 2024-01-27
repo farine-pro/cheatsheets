@@ -1,12 +1,4 @@
 ToDo:
-do uhrzeit 9:00 - 19:00 eintragen
-library build optional
-jest in der packagejson alles entfernen und ...
-add library scope organization
-eventule => remove library und neu anlegen wegen scope
-library in externen project testen ob man die so installieren kann
-contextroot beantragen
-library abstract class und services
 ng openapi gen
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
@@ -95,6 +87,9 @@ https://github.com/MayuriRathod/Angular-MonoRepo/blob/master/package.json
 https://www.danywalls.com/play-with-jest-builder-for-angular-17-experimental
 https://www.npmjs.com/package/@angular-builders/jest
 https://www.justjeb.com/post/angular-cli-ng-test-with-jest
+
+// abstract generic inject service
+https://stackblitz.com/edit/angular-ivy-pxzv2w?file=src%2Fapp%2Fapp.component.ts
 
 --------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
