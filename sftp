@@ -1,6 +1,7 @@
 ToDo:
 ng openapi gen
 abstract generc service
+https://www.angularminds.com/blog/angular-17-new-features
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
