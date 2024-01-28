@@ -2,6 +2,7 @@ ToDo:
 ng openapi gen
 abstract generc service
 https://www.angularminds.com/blog/angular-17-new-features
+Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
