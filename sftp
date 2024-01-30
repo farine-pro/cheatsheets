@@ -1,6 +1,5 @@
 ToDo:
-ng openapi gen
-abstract generc service
+https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMethod function is inspired by the
 https://www.angularminds.com/blog/angular-17-new-features
 Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
 --------------------------------------------------------------------------------------------------
