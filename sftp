@@ -2,6 +2,7 @@ ToDo:
 https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMethod function is inspired by the
 https://www.angularminds.com/blog/angular-17-new-features
 Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
+javascript:window.open("mailto:fdcs?cc=fds&bcc=fds&subject=fds&body=fds")
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
