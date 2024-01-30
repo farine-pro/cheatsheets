@@ -49,6 +49,19 @@ Extra Infos:
 https://github.com/manfredsteyer/standalone-example-cli/blob/signal-store-webinar-dec-7/src/app/domains/ticketing/feature-booking/booking.store.ts
 https://offering.solutions/blog/articles/2023/12/03/ngrx-signal-store-getting-started/
 https://ngrx.io/guide/signals/signal-store
+// Access store signal in html
+@Component({
+  providers: [TodoStore],
+  templates: `
+      <div> 
+          {{ store.doneCount() }} / {{ store.undoneCount() }}
+          {{ store.percentageDone() }}
+      </div> `
+})
+export class AppComponent implements OnInit {
+  readonly store = inject(TodoStore);
+}
+
 
 // share store to shell and make communication over / core lib
 https://github.com/angular-architects/module-federation-plugin/blob/main/libs/mf/tutorial/tutorial.md
