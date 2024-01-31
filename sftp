@@ -3,6 +3,7 @@ https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMe
 https://www.angularminds.com/blog/angular-17-new-features
 Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
 javascript:window.open("mailto:fdcs?cc=fds&bcc=fds&subject=fds&body=fds")
+Typescript update : https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
