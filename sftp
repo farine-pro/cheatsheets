@@ -114,6 +114,11 @@ https://vugar-005.medium.com/module-federation-series-part-1-a-little-in-depth-2
 https://github.com/angular-architects/module-federation-plugin/issues/75 // skip packages
 https://github.com/vugar005/youtube-webapp-turborepo/blob/main/apps/likes-app/webpack.config.js // Beispiel
 
+// Environment Variable lesen
+npm i -D dotenv
+npm i @angular-builders/custom-webpack@16.0.1
+https://gist.github.com/quinnjr/6ef72d6c3ba755125ac64da2677c5c52
+
 --------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
 https://chat.openai.com/share/f64f5928-bd22-4ee3-89a4-61e8c470fe8d
