@@ -3,10 +3,6 @@ https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMe
 https://www.angularminds.com/blog/angular-17-new-features
 Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
 javascript:window.open("mailto:fdcs?cc=fds&bcc=fds&subject=fds&body=fds")
-Typescript update : https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/
-
-https://github.com/cliveonfmgl/code-snippets/blob/main/generate-webpack-share.ts
-https://vugar-005.medium.com/module-federation-series-part-1-a-little-in-depth-258f331bc11e
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
@@ -110,6 +106,13 @@ https://www.justjeb.com/post/angular-cli-ng-test-with-jest
 
 // abstract generic inject service
 https://stackblitz.com/edit/angular-ivy-pxzv2w?file=src%2Fapp%2Fapp.component.ts
+
+// Webpack.config
+https://github.com/ssunils/multi-framework-micro-frontend/blob/main/shell/webpack.config.js
+https://github.com/cliveonfmgl/code-snippets/blob/main/generate-webpack-share.ts
+https://vugar-005.medium.com/module-federation-series-part-1-a-little-in-depth-258f331bc11e
+https://github.com/angular-architects/module-federation-plugin/issues/75 // skip packages
+https://github.com/vugar005/youtube-webapp-turborepo/blob/main/apps/likes-app/webpack.config.js // Beispiel
 
 --------------------------------------------------------------------------------------------------
 https://chat.openai.com/share/c9ca92cd-cff9-4a2b-90a7-af2591c23675
