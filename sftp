@@ -4,6 +4,9 @@ https://www.angularminds.com/blog/angular-17-new-features
 Todo: shell isso und iv verbinden, koopiermodul, synchronisierung dss, cypress, barrierefreiheit
 javascript:window.open("mailto:fdcs?cc=fds&bcc=fds&subject=fds&body=fds")
 Typescript update : https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/
+
+https://github.com/cliveonfmgl/code-snippets/blob/main/generate-webpack-share.ts
+https://vugar-005.medium.com/module-federation-series-part-1-a-little-in-depth-258f331bc11e
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
