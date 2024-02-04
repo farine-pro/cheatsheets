@@ -11,6 +11,38 @@ loadChildren: () =>
                 exposedModule: './Module'
             })
             .then(m => m.RemoteModule)
+
+// index.d.ts
+declare global {
+  interface Window {
+    blub: string;
+    myMethod: (arg0: any) => void;
+  }
+}
+// shell:
+export class AppComponent implements OnInit {
+  title = 'shell';
+
+  ngOnInit() {
+    window.blub = 'juhuuu';
+    window.myMethod = (callback: (arg0: string) => void) => {
+      callback('data');
+    };
+  }
+}
+// remote:
+export class TestComponent implements AfterViewChecked, AfterViewInit   {
+  ngAfterViewChecked() {
+    console.log(window.blub);
+    window.myMethod((result: string) => {
+      console.log(result);
+    });
+  }
+
+  ngAfterViewInit() {
+    
+  }
+}
 --------------------------------------------------------------------------------------------------
 Create a new workspace 
 ng new testmfeshell --no-create-application
