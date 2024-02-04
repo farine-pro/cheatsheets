@@ -12,24 +12,36 @@ loadChildren: () =>
             })
             .then(m => m.RemoteModule)
 
-// index.d.ts
-declare global {
-  interface Window {
-    blub: string;
-    myMethod: (arg0: any) => void;
+// create interface
+export interface MFWindow extends Window {
+  blub: string;
+  myMethod: (arg0: any) => void;
+}
+// create WindowRef service:
+function _window(): Window {
+  return window;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class WindowRef {
+  get nativeWindow(): Window {
+    return _window();
+  }
+
+  get mfWindow(): MFWindow {
+    return _window() as MFWindow;
   }
 }
-// shell:
-export class AppComponent implements OnInit {
-  title = 'shell';
-
+// inject in appcomp
+private windowRef: WindowRef
   ngOnInit() {
-    window.blub = 'juhuuu';
-    window.myMethod = (callback: (arg0: string) => void) => {
+    this.windowRef.mfWindow.blub = 'juhuuu';
+    this.windowRef.mfWindow.myMethod = (callback: (arg0: string) => void) => {
       callback('data');
     };
   }
-}
 // remote:
 export class TestComponent implements AfterViewChecked, AfterViewInit   {
   ngAfterViewChecked() {
