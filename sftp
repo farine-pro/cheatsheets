@@ -1,4 +1,7 @@
-https://buddy.works/tutorials/building-web-components-with-angular
+https://www.angulararchitects.io/blog/pitfalls-with-module-federation-and-angular/
+https://www.angulararchitects.io/blog/multi-framework-and-version-micro-frontends-with-module-federation-your-4-steps-guide/
+https://github.com/manfredsteyer/multi-framework-version/blob/main/angular.json
+https://github.com/manfredsteyer/angular3-app/blob/main/src/app/app.module.ts
 
 ToDo:
 https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMethod function is inspired by the
