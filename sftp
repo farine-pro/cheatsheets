@@ -3,6 +3,14 @@ https://www.angulararchitects.io/blog/multi-framework-and-version-micro-frontend
 https://github.com/manfredsteyer/multi-framework-version/blob/main/angular.json
 https://github.com/manfredsteyer/angular3-app/blob/main/src/app/app.module.ts
 
+https://github.com/lwsjs/local-web-server
+npm run build
+npx local-web-server \
+  --port 8080 \
+  --directory build \
+  --spa index.html \
+  --rewrite '/api/(.*) -> http://localhost:4242/api/$1'
+
 ToDo:
 https://github.com/ngrx/platform/discussions/3796#rxmethod => look for: The rxMethod function is inspired by the
 https://www.angularminds.com/blog/angular-17-new-features
