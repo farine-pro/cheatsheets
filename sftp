@@ -6,6 +6,7 @@ https://www.npmjs.com/package/ngentest
 // errorhandling module federation
 https://stackoverflow.com/questions/70848941/issue-with-dynamic-module-federation-in-angular-when-one-of-the-remote-applicati
 bei den anderen gecko team gucken wie die das haben
+in der dokumente standalone den errorhandler reinsetzen
 
 https://www.angulararchitects.io/blog/pitfalls-with-module-federation-and-angular/
 https://www.angulararchitects.io/blog/multi-framework-and-version-micro-frontends-with-module-federation-your-4-steps-guide/
