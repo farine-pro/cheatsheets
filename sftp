@@ -8,6 +8,9 @@ https://stackoverflow.com/questions/70848941/issue-with-dynamic-module-federatio
 bei den anderen gecko team gucken wie die das haben
 in der dokumente standalone den errorhandler reinsetzen
 
+// i18n retry
+https://netbasal.com/repeat-and-retry-http-requests-using-rxjs-423c1996fb65
+
 https://www.angulararchitects.io/blog/pitfalls-with-module-federation-and-angular/
 https://www.angulararchitects.io/blog/multi-framework-and-version-micro-frontends-with-module-federation-your-4-steps-guide/
 https://github.com/manfredsteyer/multi-framework-version/blob/main/angular.json
