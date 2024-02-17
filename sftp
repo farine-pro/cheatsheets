@@ -1,3 +1,80 @@
+// -----------------------------------------------------------------------
+// better postcss handling
+//  "remove": "node remove-common-tailwind-dackl-classes.js",
+// create remove-common-tailwind-dackl-classes.js
+const fs = require('fs');
+const postcss = require('postcss');
+
+// Function to find and remove common classes between two CSS files
+const removeCommonClasses = (file1Content, file2Content) => {
+    const result1 = postcss().process(file1Content).root;
+    const result2 = postcss().process(file2Content).root;
+  
+    const classesInFile1 = new Set();
+  
+  // Function to remove specified at-rules from a PostCSS node
+  const removeAtRules = (node, atRulesToRemove) => {
+    node.walkAtRules(atRule => {
+      if (atRulesToRemove.includes(atRule.name)) {
+        atRule.remove();
+      }
+    });
+  };
+
+  // Specify the at-rules to remove
+  const atRulesToRemove = ['charset', 'import', 'media','keyframes'];
+
+  // Remove specified at-rules and common classes from both files
+//   removeAtRules(result1, atRulesToRemove);
+  removeAtRules(result2, atRulesToRemove);
+
+    result1.walkRules(rule => {
+      rule.selectors.forEach(selector => {
+        selector.split(',').forEach(className => {
+          classesInFile1.add(className.trim());
+        });
+      });
+    });
+  
+    result2.walkRules(rule => {
+      rule.selectors.forEach(selector => {
+        selector.split(',').forEach(className => {
+          if (classesInFile1.has(className.trim())) {
+            rule.remove();
+          }
+        });
+      });
+    });
+  
+    return {
+      file1Content: result1.toString(),
+      file2Content: result2.toString(),
+    };
+  };
+
+// Function to read and process CSS files
+const processCSSFiles = (filePath1, filePath2) => {
+  const cssContent1 = fs.readFileSync(filePath1, 'utf8');
+  const cssContent2 = fs.readFileSync(filePath2, 'utf8');
+  
+  const { file1Content, file2Content } = removeCommonClasses(cssContent1, cssContent2);
+  
+  // Write the result to new files
+//   fs.writeFileSync('./dist/output1.css', file1Content, 'utf8');
+  fs.writeFileSync('./dist/output2.css', file2Content, 'utf8');
+
+  console.log('Common classes removed from both files.');
+};
+
+// Specify the paths of your CSS files
+const cssFilePath1 = './projects/shell/src/test.css';
+const cssFilePath2 = './projects/shell/src/test2.css';
+
+// Process CSS files
+processCSSFiles(cssFilePath1, cssFilePath2);
+// -----------------------------------------------------------------------
+
+
 module.exports = {
     plugins: [
         require('postcss-discard-duplicates')(),
