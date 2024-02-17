@@ -1,5 +1,6 @@
 // -----------------------------------------------------------------------
 // better postcss handling
+// npm install fs postcss
 //  "remove": "node remove-common-tailwind-dackl-classes.js",
 // create remove-common-tailwind-dackl-classes.js
 const fs = require('fs');
