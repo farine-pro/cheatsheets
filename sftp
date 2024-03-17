@@ -23,6 +23,17 @@ export const routes: Routes = [
   }
 ];
 
+You can pass NavigationExtras with skipLocationChange: true to hide the ugly url for your users.
+
+const navigationExtras: NavigationExtras = {
+  skipLocationChange: true,
+};
+this.router.navigate([{ outlets: { modal: 'popup' } }], navigationExtras);
+You can also rename the name of your router outlet from modal to something more user friendly like popup:
+
+/home(popup:login)
+But then again, maybe that is not pretty enough :D
+
 // -----------------------------------------------------------------------
 // better postcss handling
 // npm install fs postcss
