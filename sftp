@@ -1,4 +1,29 @@
 // -----------------------------------------------------------------------
+Angular outlet names:
+<a [routerLink]="['/about', {
+    outlets: {
+        'map': ['location'],
+        'feeds': ['feedback']
+    }
+}]">About</a>
+export const routes: Routes = [
+  {
+    path: 'about', component: T1Component, children: [
+      { path: 'location', outlet: 'map', component: T2Component },
+      {path: 'feedback', outlet: 'feeds', component:T3Component}
+    ]
+  }
+];
+export const routes: Routes = [
+  {
+    path: 'about', component: T1Component, children: [
+      { path: 'location', outlet: 'map', component: T2Component },
+      {path: 'feedback', outlet: 'feeds', component:T3Component}
+    ]
+  }
+];
+
+// -----------------------------------------------------------------------
 // better postcss handling
 // npm install fs postcss
 //  "remove": "node remove-common-tailwind-dackl-classes.js",
