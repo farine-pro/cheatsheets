@@ -1,4 +1,30 @@
-https://dev.to/nikosanif/4-1-ways-how-to-unsubscribe-from-observables-in-angular-like-a-21f5
+async saveAs(data: string) {
+    const filename = 'conf1.conf';
+    if ('showSaveFilePicker' in window) {
+        const pickerOptions = {
+            suggestedName: filename,
+            types: [
+                {
+                    description: 'Text File',
+                    accept: {
+                        'text/plain': ['.conf'],
+                    },
+                },
+            ],
+        };
+
+        const fileHandle = await (window as any).showSaveFilePicker(pickerOptions);
+        if (fileHandle) {
+            const writableFileStream = await fileHandle.createWritable();
+            if (writableFileStream) {
+                var taBlob = new Blob([data], { type: 'text/plain' });
+                await writableFileStream.write(taBlob);
+                await writableFileStream.close();
+                // this.messageService.add({ severity: 'info', summary: 'Saved ok', detail: '' });
+            }
+        }
+    } // else { // no https
+} 
 // -----------------------------------------------------------------------
 Angular outlet names:
 <a [routerLink]="['/about', {
