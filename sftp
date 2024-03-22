@@ -1,3 +1,5 @@
+fragebögen flag 
+---------------------------------------------------------------
 async saveAs(data: string) {
     const filename = 'conf1.conf';
     if ('showSaveFilePicker' in window) {
