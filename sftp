@@ -4,6 +4,12 @@
    ...
 
 Any time you change the imported package you will need to rebuild it and then in the application that uses it npm update rp-utils update that dependency
+"scripts": {
+   ...
+   "build_lib": "ng build --prod example-lib",
+   "npm_pack": "cd dist/example-lib && npm pack",
+   "package": "npm run build_lib && npm run npm_pack"
+}
 -----------------------------------------------------------
 https://www.angulararchitects.io/en/blog/testing-angular-standalone-components/
 https://www.jetbrains.com/help/idea/http-response-handling-examples.html#script-var-example
