@@ -1,3 +1,10 @@
+{ 
+  "dependencies": { ...
+    "rp-utils": "../rp-utils",
+   ...
+
+Any time you change the imported package you will need to rebuild it and then in the application that uses it npm update rp-utils update that dependency
+-----------------------------------------------------------
 https://www.angulararchitects.io/en/blog/testing-angular-standalone-components/
 https://www.jetbrains.com/help/idea/http-response-handling-examples.html#script-var-example
 https://stackoverflow.com/questions/34384650/intellij-idea-rest-client-file-uploading
