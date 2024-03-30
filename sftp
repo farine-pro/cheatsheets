@@ -1,4 +1,18 @@
-https://stackoverflow.com/questions/77661456/how-to-export-stylesheets-from-angular-libraries
+“ng-package.json” configuration:
+
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/lib",
+  "lib": {
+    "entryFile": "src/public-api.ts",
+    "styleIncludePaths": [“../../node_modules/@syncfusion”]
+  }
+}
+“lib.component.scss”:
+
+@import '~@syncfusion/ej2-angular-buttons/styles/material.scss';
+---------------------
+
 { 
   "dependencies": { ...
     "rp-utils": "../rp-utils",
