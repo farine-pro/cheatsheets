@@ -1,0 +1,211 @@
+// Variables used by Scriptable.
+// These must be at the very top of the file. Do not edit.
+// icon-color: deep-blue; icon-glyph: gas-pump;
+// share-sheet-inputs: plain-text;
+// Script by Andreas Redeker <hello@andreasredeker.de>
+
+// Get your own API key from https://creativecommons.tankerkoenig.de/
+const apiKey = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+const radius = 3;
+const sort = "price";
+
+// set to true to use google maps instead of apple maps
+const useGoogleMaps = false;
+let fuelType = "e5";
+
+// set latitude and longitude for a fixed location
+// example: let latitude = 52.516; let longitude = 13.376;
+let latitude;
+let longitude;
+
+const fuelTypes = {
+  e5: "Super E5",
+  e10: "Super E10",
+  diesel: "Diesel",
+};
+
+const primaryColor = Color.blue();
+const carIcon = SFSymbol.named("car.fill");
+
+if (args.widgetParameter && paramsValid(args.widgetParameter)) {
+  fuelType = args.widgetParameter;
+}
+
+const reqUrl = (location) =>
+  `https://creativecommons.tankerkoenig.de/json/list.php?lat=${location.latitude.toFixed(
+    3
+  )}&lng=${location.longitude.toFixed(
+    3
+  )}&rad=${radius}&sort=${sort}&type=${fuelType}&apikey=${apiKey}`;
+
+const station = await getPriceData();
+
+let widget = await createWidget();
+if (!config.runsInWidget) {
+  await widget.presentSmall();
+}
+
+Script.setWidget(widget);
+Script.complete();
+
+async function createWidget(items) {
+  let widget = new ListWidget();
+
+  // cache data for at least 5 minutes
+  widget.refreshAfterDate = new Date(Date.now() + 300000);
+
+  if (station) {
+    let stationName;
+
+    if (station.brand) {
+      stationName = widget.addText(capitalize(station.brand));
+    } else {
+      stationName = widget.addText(capitalize(station.name));
+    }
+
+    stationName.font = Font.boldSystemFont(16);
+    stationName.textColor = primaryColor;
+    stationName.minimumScaleFactor = 0.5;
+
+    let street = widget.addText(capitalize(station.street));
+    street.font = Font.mediumSystemFont(10);
+    street.textColor = Color.gray();
+    let place = widget.addText(capitalize(station.place));
+    place.font = Font.mediumSystemFont(10);
+    place.textColor = Color.gray();
+
+    widget.url = useGoogleMaps ? getGoogleMapsUrl(station) : getAppleMapsUrl(station);
+
+    widget.addSpacer(2);
+
+    const row = widget.addStack();
+
+    car = row.addImage(carIcon.image);
+    car.tintColor = Color.gray();
+    car.imageSize = new Size(12, 12);
+
+    row.addSpacer(4);
+
+    const isOpen = station.isOpen ? "geöffnet" : "geschlossen";
+
+    let dist = row.addText(station?.dist + " km • " + isOpen);
+    dist.font = Font.mediumSystemFont(10);
+    dist.textColor = Color.gray();
+
+    widget.addSpacer();
+
+    const gasType = widget.addText(fuelTypes[fuelType]);
+    gasType.font = Font.mediumSystemFont(12);
+    gasType.textColor = Color.gray();
+
+    const priceStack = widget.addStack();
+    let price = priceStack.addText(station.price.toLocaleString().slice(0, -1));
+    price.font = Font.boldSystemFont(32);
+    price.textColor = primaryColor;
+
+    let eur = priceStack.addText(" €");
+    eur.font = Font.boldSystemFont(32);
+    eur.textColor = primaryColor;
+  } else if (apiKey === "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") {
+    car = widget.addImage(carIcon.image);
+    car.tintColor = primaryColor;
+    car.imageSize = new Size(32, 32);
+    car.centerAlignImage();
+    widget.addSpacer(8);
+    const missingApiKey = widget.addText("Bitte Tankerkönig API Key einfügen");
+    missingApiKey.font = Font.mediumSystemFont(12);
+    missingApiKey.textColor = Color.gray();
+    missingApiKey.centerAlignText();
+  } else {
+    car = widget.addImage(carIcon.image);
+    car.tintColor = primaryColor;
+    car.imageSize = new Size(32, 32);
+    car.centerAlignImage();
+    widget.addSpacer(8);
+    const loading = widget.addText("Daten werden geladen");
+    loading.font = Font.mediumSystemFont(12);
+    loading.textColor = Color.gray();
+    loading.centerAlignText();
+  }
+  return widget;
+}
+
+async function getPriceData() {
+  try {
+    const location = await getLocation();
+    if (location) {
+      const data = await new Request(reqUrl(location)).loadJSON();
+      if (data.ok) {
+        if (data.stations.length > 0) {
+          let openStations = data.stations.filter(
+            (s) => s.isOpen == true && s.price != null
+          );
+          if (openStations.length > 0) {
+            const station = openStations[0];
+            return {
+              name: station.name,
+              brand: station.brand,
+              street: station.street + " " + station.houseNumber,
+              place: station.postCode + " " + station.place,
+              price: station.price,
+              dist: station.dist,
+              isOpen: station.isOpen,
+              lat: station.lat,
+              lng: station.lng,
+            };
+          } else {
+            console.log(`no stations found in radius ${radius} with price`);
+            return null;
+          }
+        } else {
+          console.log(`no stations found in radius ${radius}`);
+          return null;
+        }
+      } else {
+        console.log("data not ok");
+        return null;
+      }
+    } else {
+      console.log("no location found");
+      return null;
+    }
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+async function getLocation() {
+  if (latitude && longitude) {
+    return { latitude: latitude, longitude: longitude };
+  } else {
+    try {
+      Location.setAccuracyToKilometer();
+      return await Location.current();
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
+function paramsValid(input) {
+  return input in fuelTypes;
+}
+
+function capitalize(string) {
+  return string
+    .toLowerCase()
+    .replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
+}
+
+function getGoogleMapsUrl(station) {
+  let destination = station.lat + "," + station.lng;
+  let url = `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=car`;
+  return url.toString();
+}
+
+function getAppleMapsUrl(station) {
+  let destination = station.lat + ',' + station.lng
+  let url = `http://maps.apple.com/?q=${destination}`
+  return url.toString();
+}
