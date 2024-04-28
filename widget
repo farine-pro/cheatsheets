@@ -1,3 +1,35 @@
+return fetch('https://pv.mehl-web.de/pv/solargesamt.html', myInit)
+		.then((data) => {
+			return data.json();
+		})
+		.then((res) => {
+			const powerData = res.l.split('|');
+			let power = 0;
+			let powerUnit = 'kW';
+			if(powerData[0].includes('.')) {
+				power = parseFloat(powerData[0]).toFixed(2)
+			}
+			else {
+				power = (powerData[0] / 1000).toFixed(2);
+			}
+			StreamDeck.setTitle(context, `${power}\n\r${powerUnit}`, HARDWARE_AND_SOFTWARE);
+			console.log(res);
+		})
+		.catch(err=>{
+		  // handle any kind of error
+		  console.log(err);
+		});
+
+body {
+    width: 820px;
+    height: 420px;
+    background: #fff url(../img/b1.png) no-repeat;
+    background-size: 100% 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffef00;
+}
+
+
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: deep-blue; icon-glyph: gas-pump;
