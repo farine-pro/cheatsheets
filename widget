@@ -1,24 +1,33 @@
-return fetch('https://pv.mehl-web.de/pv/solargesamt.html', myInit)
-		.then((data) => {
-			return data.json();
-		})
-		.then((res) => {
-			const powerData = res.l.split('|');
-			let power = 0;
-			let powerUnit = 'kW';
-			if(powerData[0].includes('.')) {
-				power = parseFloat(powerData[0]).toFixed(2)
-			}
-			else {
-				power = (powerData[0] / 1000).toFixed(2);
-			}
-			StreamDeck.setTitle(context, `${power}\n\r${powerUnit}`, HARDWARE_AND_SOFTWARE);
-			console.log(res);
-		})
-		.catch(err=>{
-		  // handle any kind of error
-		  console.log(err);
-		});
+String[] sp = s.split("\\|");
+
+				if (sp[0].contains(".") || sp[0].contains(","))
+					d.leistungtext = sp[0] + " kW";
+				else {
+					if(isSunDown && !isSunRise)
+						d.leistungtext = "0 W";
+					else
+						d.leistungtext = sp[0] + " W";
+				}
+
+				String tag = "";
+				if (sp[1].contains("."))
+					tag = "\u2211-Tag: " + sp[1] + " kWh";
+				else
+					tag = "\u2211-Tag: " + sp[1] + " Wh";
+				d.tagestext = tag;
+
+				d.monatsfortschritttext = Integer.parseInt(sp[2]);
+
+				String gesamt = "";
+				if (sp.length == 5) {
+					if (sp[4].contains("m"))
+						gesamt = "\u2211: " + sp[3] + " MWh";
+					else
+						gesamt = "\u2211: " + sp[3] + " kWh";
+				} else
+					gesamt = "\u2211: " + sp[3] + " Wh";
+
+				d.gesamttext = gesamt;
 
 
 // Variables used by Scriptable.
