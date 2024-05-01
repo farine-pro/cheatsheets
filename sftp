@@ -1,3 +1,5 @@
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/6746377604498-The-IDE-is-really-taking-up-too-much-memory
+
 ntry.js?v=[Date.now()]',
 location ~ .*remoteEntry.js$ {
     expires -1;
