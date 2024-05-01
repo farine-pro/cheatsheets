@@ -1,3 +1,8 @@
+location ~ .*remoteEntry.js$ {
+    expires -1;
+    add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+}
+
 https://javascript.plainenglish.io/angular-using-app-initializer-di-token-with-observables-and-promises-d089c3127de0
 https://angularindepth.com/posts/1003/hooking-into-the-angular-bootstrap-process
 https://bulruno.medium.com/angular-sonar-qube-integration-801fd3df885d
