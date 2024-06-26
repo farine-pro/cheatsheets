@@ -1,3 +1,15 @@
+https://medium.com/@vohrakritika9/integrating-lighthouse-with-cypress-9745e9177d0e
+// pluck specific keys to keep the table readable
+  const violationData = violations.map(
+    ({ id,impact, description, nodes, help }) => ({
+      id, // the id of the rule this also helps us in configuring custom action for a rule.    
+      impact, // criticality of the violation 
+      description, // description of the violation
+      nodes: nodes.length, //how many times the violation occured 
+      help, // help on how to fix the violation
+    })
+  );
+https://www.deque.com/axe/core-documentation/api-documentation/
 https://github.com/component-driven/cypress-axe/issues/162
 https://www.browserstack.com/guide/cypress-safari-testing
 https://testgrid.io/blog/cypress-visual-testing/
