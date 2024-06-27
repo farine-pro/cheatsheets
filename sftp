@@ -1,3 +1,21 @@
+You can simulate a paste command just by adding { delay: 0 } option to the type command.
+
+install esbuild
+
+const { defineConfig } = require("cypress");
+const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+
+      on("file:preprocessor",  createBundler())
+
+      return config;
+    },
+  },
+});
+
 https://medium.com/@vohrakritika9/integrating-lighthouse-with-cypress-9745e9177d0e
 // pluck specific keys to keep the table readable
   const violationData = violations.map(
