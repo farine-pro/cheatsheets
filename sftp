@@ -1,6 +1,22 @@
 https://canvas.arc42.org/architecture-communication-canvas
 https://quality.arc42.org/
 
+const retryOptions = {
+      limit: 5, // max number of retries
+      delay: 500 // delay before next iteration, ms
+    }
+    cy.compareSnapshot('home-page-with-threshold', 0, retryOptions)
+
+module.exports = (on, config) => {
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
+
+  // modify env var value
+  config.env.ENVIRONMENT = 'dev';
+
+  // return config to update the global configuration
+  return config
+}
 
 You can simulate a paste command just by adding { delay: 0 } option to the type command.
 
