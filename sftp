@@ -1,6 +1,35 @@
 https://canvas.arc42.org/architecture-communication-canvas
 https://quality.arc42.org/
 
+import groovy.json.JsonSlurper
+
+def getJobStatus(String jobName){
+    def rx = httpRequest "https://jenkins.example.com/job/${jobName}/lastBuild/api/json"
+    def rxJson = new JsonSlurper().parseText(rx.getContent())
+    return rxJson['result']
+}
+
+node() {
+    def any_success = false
+    stage('check'){
+        for(jobname in ['SomeJob', 'AnotherJob']){
+            jobStatus = getJobStatus(jobName)
+            echo jobStatus
+            if(jobStatus == "SUCCESS" || jobStatus == "UNSTABLE"){
+                any_success = true
+                break
+            }
+        }
+    }
+    stage('report') {
+        if(!any_success){
+            httpRequest 'https://jenkins.example.com/sounds/playSound?src=https://jenkins.example.com/userContent/sounds/dead.wav'
+        }
+    }
+
+
+}
+
 const retryOptions = {
       limit: 5, // max number of retries
       delay: 500 // delay before next iteration, ms
