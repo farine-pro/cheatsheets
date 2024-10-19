@@ -1,3 +1,15 @@
+  <!-- Textarea -->
+        <div class="relative">
+            <textarea 
+                class="w-full h-40 border border-gray-300 rounded-md p-4 text-sm text-gray-900 placeholder-italic placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none" 
+                placeholder="Ihre Antwort"></textarea>
+
+            <!-- Character count -->
+            <div class="absolute bottom-2 right-2 text-gray-500 text-xs">
+                0/999
+            </div>
+        </div>
+
 https://github.com/cypress-io/cypress/issues/29171
 https://nitin-kr-pathak1.medium.com/optimizing-test-performance-with-cypresss-experimental-memory-management-6c8b6e866fe7
 
