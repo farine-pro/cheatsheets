@@ -1,3 +1,4 @@
+https://github.com/haim-io/cypress-image-diff/issues/68
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, args) => {
     if (browser.name === 'chrome') {
@@ -15,7 +16,14 @@ module.exports = (on, config) => {
     }
   })
 }
+on('before:browser:launch', (browser = {}, launchOptions) => {
 
+    if (browser.name === 'chrome') {
+      launchOptions.args.push('--disable-dev-shm-usage')
+      launchOptions.args.push('--window-size=2560,1080')
+      return launchOptions
+    }
+  })
 https://www.adesso.de/de/news/blog/automatisierte-barrierefreiheitstests-mit-cypress-axe.jsp
 https://www.adesso.de/de/news/blog/f-i-r-s-t-prinzipien-fuer-solides-unit-testen.jsp
 https://www.adesso.de/de/news/blog/das-saga-muster-als-zutat-fuer-erfolgreiche-systeme.jsp
