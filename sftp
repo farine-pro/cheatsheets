@@ -1,3 +1,21 @@
+module.exports = (on, config) => {
+  on('before:browser:launch', (browser = {}, args) => {
+    if (browser.name === 'chrome') {
+      args.push('--cast-initial-screen-width=1600')
+      args.push('--cast-initial-screen-height=900')
+
+      return args
+    }
+
+    if (browser.name === 'electron') {
+      args.width = 1600
+      args.height = 900
+
+      return args
+    }
+  })
+}
+
 https://www.adesso.de/de/news/blog/automatisierte-barrierefreiheitstests-mit-cypress-axe.jsp
 https://www.adesso.de/de/news/blog/f-i-r-s-t-prinzipien-fuer-solides-unit-testen.jsp
 https://www.adesso.de/de/news/blog/das-saga-muster-als-zutat-fuer-erfolgreiche-systeme.jsp
