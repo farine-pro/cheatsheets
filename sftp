@@ -1,3 +1,19 @@
+browser = await playwright.chromium.launch(
+    proxy={
+        "server": "<PROXY_IP_ADDRESS>:<PROXY_PORT>",
+        "username": "<YOUR_USERNAME>",
+        "password": "<YOUR_PASSWORD>",
+    },
+)
+// 1. Set trace option
+const browser = await chromium.launch({
+  proxy: /*...*/ ,
+  headless: false,
+  trace: 'verbose'
+});
+
+// 2. Check wsEndpoint URL in terminal
+// Browser is launched and listens wsEndpoint
 https://scrapeops.io/playwright-web-scraping-playbook/nodejs-playwright-waiting-page-element-load/
 
 <?xml version="1.0" encoding="UTF-8"?>
