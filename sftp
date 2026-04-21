@@ -1,3 +1,12 @@
+"Erstelle eine Java-Lösung, um ein bestehendes, offizielles SEPA-PDF-Formular in ein automatisiertes System zu überführen, das iText 7 und Mustache nutzt.
+Der Workflow soll folgende Schritte abdecken:
+Analyse & Input: Gebe an, wie man ein vorhandenes SEPA-PDF (z.B. per URL oder lokaler Datei) als Basis nutzt.
+Template-Erstellung (Konzept): Erkläre kurz, wie man aus diesem PDF ein HTML/Mustache-Template erstellt (entweder durch manuelle Nachbildung des Layouts in HTML oder durch Nutzung des PDFs als fixiertes Hintergrundbild via CSS).
+Mustache-Mapping: Implementiere eine Java-Methode, die ein solches HTML-Template mit Platzhaltern ({{iban}}, {{name}}, etc.) entgegennimmt und die Daten mithilfe einer Map befüllt.
+Rechtskonforme PDF-Generierung: Nutze iText 7 pdfHTML, um das befüllte HTML wieder in ein PDF umzuwandeln. Verwende dabei den CSS Media Type print und @page-Regeln, um sicherzustellen, dass das Layout (DIN-A4, Abstände) exakt dem Original-SEPA-Standard entspricht.
+Präzision: Zeige im CSS-Beispiel, wie man das ursprüngliche PDF als Hintergrundbild (background-image) einbindet, um die befüllten Felder pixelgenau über die Originallinien zu legen.
+Dependencies: Liste alle notwendigen Maven-Abhängigkeiten für iText 7, pdfHTML und JMustache auf."
+
 https://devblogs.microsoft.com/java/customize-github-copilot-in-jetbrains-with-custom-instructions/
 
 https://flexboxlabs.netlify.app/
